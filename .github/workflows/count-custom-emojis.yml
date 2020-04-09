@@ -1,0 +1,26 @@
+name: Count Custom Emojis
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  count:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -U discord.py
+    - name: Run Applicaion
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        GUILD_ID: ${{ secrets.GUILD_ID }}
+        CHANNEL_ID: ${{ secrets.CHANNEL }}
+      run: python ci.py $BOT_TOKEN $GUILD_ID $CHANNEL_ID
+    
