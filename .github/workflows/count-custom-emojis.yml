@@ -3,6 +3,8 @@ name: Count Custom Emojis
 on:
   push:
     branches: [ master ]
+  schedule:
+    - cron:  '0 18 * * 0'
 
 jobs:
   count:
