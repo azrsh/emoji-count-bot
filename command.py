@@ -1,7 +1,7 @@
 import discord
 import bottoken
 import emojicnt
-
+import dic2text
 
 client = discord.Client()
 
@@ -15,6 +15,7 @@ async def on_message(message):
         return
     if message.content == '/count-emoji':
         result = await emojicnt.count_emoji(message.guild)
-        await message.channel.send(result)
+        text = 'Count Result\n' + dic2text.convert(result)
+        await message.channel.send(text)
 
 client.run(bottoken.get_token())

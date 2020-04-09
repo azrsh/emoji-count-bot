@@ -1,6 +1,7 @@
 import sys
 import discord
 import emojicnt
+import dic2text
 
 if (len(sys.argv) < 4):
     sys.exit()
@@ -18,13 +19,14 @@ async def on_ready():
         client.close()
     
     result = await emojicnt.count_emoji(guild)
-    print(str(result))
+    text = 'Count Result\n' + dic2text.convert(result)
+    print(text)
     
     channel = guild.get_channel(channelId)
     if guild is None:
         print('Not Found Channel')
         client.close()
-    await channel.send(result)
+    await channel.send(text)
 
     await client.close()
 
