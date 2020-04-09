@@ -21,6 +21,6 @@ jobs:
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         GUILD_ID: ${{ secrets.GUILD_ID }}
-        CHANNEL_ID: ${{ secrets.CHANNEL }}
+        CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
       run: python ci.py $BOT_TOKEN $GUILD_ID $CHANNEL_ID
     
