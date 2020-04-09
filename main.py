@@ -1,5 +1,5 @@
 import discord
-import token
+import bottoken
 
 
 client = discord.Client()
@@ -30,4 +30,4 @@ async def count_emoji(guild, notification_channel):
 
 
 
-client.run(token.TOKEN)
+client.run(bottoken.get_token())
