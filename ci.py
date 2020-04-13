@@ -4,7 +4,8 @@ import emojicnt
 import dic2text
 
 if (len(sys.argv) < 4):
-    sys.exit()
+    print("Argument Error")
+    sys.exit(1)
 bottoken = sys.argv[1]
 guildId = int(sys.argv[2])
 channelId = int(sys.argv[3])
@@ -16,7 +17,8 @@ async def on_ready():
     guild = client.get_guild(guildId)
     if guild is None:
         print('Not Found Guild')
-        client.close()
+        await client.close()
+        return
     
     result = await emojicnt.count_emoji(guild)
     sorted_result = dict(sorted(result.items(), key=lambda x:x[1], reverse=True))
@@ -24,9 +26,10 @@ async def on_ready():
     print(text)
     
     channel = guild.get_channel(channelId)
-    if guild is None:
+    if channel is None:
         print('Not Found Channel')
-        client.close()
+        await client.close()
+        return
     await channel.send(text)
 
     await client.close()
