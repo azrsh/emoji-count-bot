@@ -21,25 +21,24 @@ async def on_ready():
         await client.close()
         return
     
+    channel = guild.get_channel(channelId)
+    if channel is None:
+        print('Not Found Channel')
+        await client.close()
+        return
+
     text = 'Count Result\n'
     
     lastweek = datetime.datetime.now() - datetime.timedelta(weeks=1)
     last1week_result = await emojicnt.count_emoji(guild, after=lastweek)
     sorted_last1week_result = dict(sorted(last1week_result.items(), key=lambda x:x[1], reverse=True))
     text += 'Last 1 week messages\n' + dic2text.convert(sorted_last1week_result)
-    
-    last200_result = await emojicnt.count_emoji(guild, limit=200)
-    sorted_last200_result = dict(sorted(last200_result.items(), key=lambda x:x[1], reverse=True))
-    text += 'Last 200 messages for each channel\n' + dic2text.convert(sorted_last200_result)
-    
-    print(text)
-    
-    channel = guild.get_channel(channelId)
-    if channel is None:
-        print('Not Found Channel')
-        await client.close()
-        return
     await channel.send(text)
+
+    #last200_result = await emojicnt.count_emoji(guild, limit=200)
+    #sorted_last200_result = dict(sorted(last200_result.items(), key=lambda x:x[1], reverse=True))
+    #text += 'Last 200 messages for each channel\n' + dic2text.convert(sorted_last200_result)
+    #await channel.send(text)
 
     await client.close()
 
