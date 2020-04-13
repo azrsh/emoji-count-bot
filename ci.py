@@ -19,7 +19,8 @@ async def on_ready():
         client.close()
     
     result = await emojicnt.count_emoji(guild)
-    text = 'Count Result\n' + dic2text.convert(result)
+    sorted_result = dict(sorted(result.items(), key=lambda x:x[1], reverse=True))
+    text = 'Count Result\n' + dic2text.convert(sorted_result)
     print(text)
     
     channel = guild.get_channel(channelId)
