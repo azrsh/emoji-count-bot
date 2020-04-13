@@ -30,7 +30,7 @@ async def on_ready():
     text = 'Count Result\n'
     
     lastweek = datetime.datetime.now() - datetime.timedelta(weeks=1)
-    last1week_result = await emojicnt.count_emoji(guild, after=lastweek)
+    last1week_result = await emojicnt.count_emoji(guild, limit=None, after=lastweek)
     sorted_last1week_result = dict(sorted(last1week_result.items(), key=lambda x:x[1], reverse=True))
     text += 'Last 1 week messages\n' + dic2text.convert(sorted_last1week_result)
     await channel.send(text)
