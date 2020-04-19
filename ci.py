@@ -32,8 +32,14 @@ async def on_ready():
     last1week = datetime.datetime.now() - datetime.timedelta(weeks=1)
     last1week_result = await emojicnt.count_emoji(guild, limit=None, after=last1week)
     sorted_last1week_result = dict(sorted(last1week_result.items(), key=lambda x:x[1], reverse=True))
-    text += 'Last 1 week messages\n' + dic2text.convert(sorted_last1week_result)
+    text += 'Last 1 week messages\n' + dic2text.convert_to_ranking(sorted_last1week_result)
     await channel.send(text)
+
+    #last1week = datetime.datetime.now() - datetime.timedelta(weeks=1)
+    #last1week_result = await emojicnt.count_emoji(guild, limit=None, after=last1week)
+    #sorted_last1week_result = dict(sorted(last1week_result.items(), key=lambda x:x[1], reverse=True))
+    #text += 'Last 1 week messages\n' + dic2text.convert(sorted_last1week_result)
+    #await channel.send(text)
 
     #last200_result = await emojicnt.count_emoji(guild, limit=200)
     #sorted_last200_result = dict(sorted(last200_result.items(), key=lambda x:x[1], reverse=True))
