@@ -12,7 +12,7 @@ def ordinal_number(i):
     return {1:"1 st", 2:"2 nd", 3:"3 rd"}.get(i) or str(i) + " th"
 
 def convert_to_ranking(dic, width=5):
-    result = '  Rank  |  Emoji  |    Uses    \n'
+    result = ' Rank | Emoji | Uses \n'
     index = 1
     for key, value in dic.items():
         if index <= 5:
