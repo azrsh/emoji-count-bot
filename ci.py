@@ -27,14 +27,24 @@ async def on_ready():
         await client.close()
         return
 
-    text = 'Count Result\n'
+    textLines = ['Count Result']
     
     last1week = datetime.datetime.now() - datetime.timedelta(weeks=1)
     last1week_result = await emojicnt.count_emoji(guild, limit=None, after=last1week)
     sorted_last1week_result = dict(sorted(last1week_result.items(), key=lambda x:x[1], reverse=True))
-    text += 'Last 1 week messages\n' + dic2text.convert_to_ranking(sorted_last1week_result)
-    await channel.send(text)
+    textLines.append('Last 1 week messages')
+    textLines.extend(dic2text.convert_to_ranking(sorted_last1week_result))
 
+    messageSendThreshold = 200
+    textBlock = ''
+    for line in textLines:
+        textBlock += line + '\n'
+        if len(textBlock) > messageSendThreshold:
+            await channel.send(textBlock + '\n')
+            textBlock = ''
+    if textBlock != '':
+        await channel.send(textBlock + '\n')
+    
     #last1week = datetime.datetime.now() - datetime.timedelta(weeks=1)
     #last1week_result = await emojicnt.count_emoji(guild, limit=None, after=last1week)
     #sorted_last1week_result = dict(sorted(last1week_result.items(), key=lambda x:x[1], reverse=True))
